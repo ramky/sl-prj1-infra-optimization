@@ -35,8 +35,8 @@
         name: docker
         state: started
         enabled: yes
-      handlers:
-        - name: restart docker
-          service:
-            name: docker
-            state: restarted
+      # handlers:
+      #   - name: restart docker
+      #     service:
+      #       name: docker
+      #       state: restarted
