@@ -3,6 +3,7 @@
   become: true
   vars:
     user: ansible_user
+    home_dir: "/home/{{ user }}"
   tasks:
     - name: Add an apt signing key for Kubernetes
       apt_key:
@@ -36,16 +37,24 @@
       become: true
       command: "kubeadm init"
 
-    - name: Setup kubeconfig for ansible_user
-      command: "{{ item }}"
-      with_items:
-        - mkdir -p /home/"{{ user }}"/.kube
-        - cp -i /etc/kubernetes/admin.conf /home/"{{ user }}"/.kube/config
-        - chown "{{ user }}":"{{ user }}" $HOME/.kube/config
+    - name: Create .kube directory
+      file:
+        path: "{{ home_dir }}/.kube"
+
+    - name: Copy kubeconfig for user
+      copy:
+        src: /etc/kubernetes/admin.conf
+        dest: "{{ home_dir }}/.kube/config"
+
+    - name: Change ownership to dir
+      file:
+        path: "{{ home_dir }}/.kube/config"
+        owner: "{{ user }}"
+        group: "{{ user }}"
 
     - name: Install weavenet pod network
       become: false
-      command: <<EOTkubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"EOT
+      command: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 
     - name: Generate join command
       command: kubeadm token create --print-join-command
