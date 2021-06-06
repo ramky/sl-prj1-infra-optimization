@@ -23,3 +23,33 @@
           - kubelet
           - kubeadm
           - kubectl
+
+    # - name: Restart kubelet
+    #   service:
+    #     name: kubelet
+    #     daemon_reload: yes
+    #     state: restarted
+
+    - name: Run kubeadm init
+      command: "sudo kubeadm init"
+
+    - name: Setup kubeconfig for ansible_user
+      command: "{{ item }}"
+      with_items:
+        - sudo mkdir -p $HOME/.kube
+        - sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+        - sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+    - name: Install weavenet pod network
+      become: false
+      command: <<EOTkubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"EOT
+
+    - name: Generate join command
+      command: kubeadm token create --print-join-command
+      register: join_command
+
+    - name: Copy join command to local file
+      local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
+
+    - name: Get nodes
+      command: "kubectl get nodes"
