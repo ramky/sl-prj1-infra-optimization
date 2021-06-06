@@ -91,17 +91,17 @@ resource "aws_instance" "sl-prj1-k8s-master" {
   }
 }
 
-resource "aws_instance" "sl-prj1-k8s-worker1" {
-  ami                    = var.instance_ami
-  instance_type          = var.instance_type
-  subnet_id              = aws_subnet.sl-prj1-subnet-public.id
-  vpc_security_group_ids = [aws_security_group.sl-prj1-sg-22.id]
-  key_name               = var.key_name
-  tags = {
-    Name  = "k8s-worker1"
-    Group = "worker"
-  }
-}
+# resource "aws_instance" "sl-prj1-k8s-worker2" {
+#   ami                    = var.instance_ami
+#   instance_type          = var.instance_type
+#   subnet_id              = aws_subnet.sl-prj1-subnet-public.id
+#   vpc_security_group_ids = [aws_security_group.sl-prj1-sg-22.id]
+#   key_name               = var.key_name
+#   tags = {
+#     Name  = "k8s-worker1"
+#     Group = "worker"
+#   }
+# }
 
 # resource "aws_instance" "sl-prj1-k8s-worker2" {
 #   ami                    = var.instance_ami
@@ -109,4 +109,8 @@ resource "aws_instance" "sl-prj1-k8s-worker1" {
 #   subnet_id              = aws_subnet.sl-prj1-subnet-public.id
 #   vpc_security_group_ids = [aws_security_group.sl-prj1-sg-22.id]
 #   key_name               = var.key_name
+#   tags = {
+#     Name  = "k8s-worker2"
+#     Group = "worker"
+#   }
 # }
