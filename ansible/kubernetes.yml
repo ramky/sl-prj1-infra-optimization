@@ -62,10 +62,10 @@
 
     - name: Generate join command
       command: kubeadm token create --print-join-command
-      register: join_command
+      # register: join_command
 
-    - name: Copy join command to local file
-      local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
+    # - name: Copy join command to local file
+    #   local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
 
     - name: Get nodes
       command: "kubectl get nodes"
