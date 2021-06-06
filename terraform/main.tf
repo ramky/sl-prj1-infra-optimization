@@ -65,9 +65,9 @@ resource "aws_security_group" "sl-prj1-sg-22" {
   name   = "sg_22"
   vpc_id = aws_vpc.sl-prj1-vpc.id
   ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
@@ -84,6 +84,9 @@ resource "aws_instance" "sl-prj1-k8s-master" {
   subnet_id              = aws_subnet.sl-prj1-subnet-public.id
   vpc_security_group_ids = [aws_security_group.sl-prj1-sg-22.id]
   key_name               = var.key_name
+  tags = {
+    Group = "master"
+  }
 }
 
 resource "aws_instance" "sl-prj1-k8s-worker1" {
@@ -92,12 +95,15 @@ resource "aws_instance" "sl-prj1-k8s-worker1" {
   subnet_id              = aws_subnet.sl-prj1-subnet-public.id
   vpc_security_group_ids = [aws_security_group.sl-prj1-sg-22.id]
   key_name               = var.key_name
+  tags = {
+    Group = "worker"
+  }
 }
 
-resource "aws_instance" "sl-prj1-k8s-worker2" {
-  ami                    = var.instance_ami
-  instance_type          = var.instance_type
-  subnet_id              = aws_subnet.sl-prj1-subnet-public.id
-  vpc_security_group_ids = [aws_security_group.sl-prj1-sg-22.id]
-  key_name               = var.key_name
-}
+# resource "aws_instance" "sl-prj1-k8s-worker2" {
+#   ami                    = var.instance_ami
+#   instance_type          = var.instance_type
+#   subnet_id              = aws_subnet.sl-prj1-subnet-public.id
+#   vpc_security_group_ids = [aws_security_group.sl-prj1-sg-22.id]
+#   key_name               = var.key_name
+# }
