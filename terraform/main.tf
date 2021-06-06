@@ -61,6 +61,7 @@ resource "aws_route_table_association" "sl-prj1-rta-subnet-public" {
   route_table_id = aws_route_table.sl-prj1-rtb-public.id
 }
 
+# TODO: Rename security group
 resource "aws_security_group" "sl-prj1-sg-22" {
   name   = "sg_22"
   vpc_id = aws_vpc.sl-prj1-vpc.id
