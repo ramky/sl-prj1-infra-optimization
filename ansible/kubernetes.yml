@@ -1,6 +1,8 @@
 ---
 - hosts: master_node
   become: true
+  vars:
+    user: ansible_user
   tasks:
     - name: Add an apt signing key for Kubernetes
       apt_key:
@@ -35,11 +37,11 @@
       command: "kubeadm init"
 
     - name: Setup kubeconfig for ansible_user
-      shell: "{{ item }}"
+      command: "{{ item }}"
       with_items:
-        - mkdir -p $HOME/.kube
-        - cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-        - chown $(id -u):$(id -g) $HOME/.kube/config
+        - mkdir -p /home/"{{ user }}"/.kube
+        - cp -i /etc/kubernetes/admin.conf /home/"{{ user }}"/.kube/config
+        - chown "{{ user }}":"{{ user }}" $HOME/.kube/config
 
     - name: Install weavenet pod network
       become: false
