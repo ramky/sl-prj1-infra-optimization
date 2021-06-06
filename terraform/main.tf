@@ -85,6 +85,7 @@ resource "aws_instance" "sl-prj1-k8s-master" {
   vpc_security_group_ids = [aws_security_group.sl-prj1-sg-22.id]
   key_name               = var.key_name
   tags = {
+    Name  = "k8s-master"
     Group = "master"
   }
 }
@@ -96,6 +97,7 @@ resource "aws_instance" "sl-prj1-k8s-worker1" {
   vpc_security_group_ids = [aws_security_group.sl-prj1-sg-22.id]
   key_name               = var.key_name
   tags = {
+    Name  = "k8s-worker1"
     Group = "worker"
   }
 }
