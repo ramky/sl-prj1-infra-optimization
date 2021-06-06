@@ -35,7 +35,6 @@
       command: "kubeadm init"
 
     - name: Setup kubeconfig for ansible_user
-      become: true
       command: "{{ item }}"
       with_items:
         - mkdir -p $HOME/.kube
