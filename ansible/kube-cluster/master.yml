@@ -3,6 +3,7 @@
   become: yes
   vars:
     user: ansible_user
+    home: "/home/{{ user }}"
   tasks:
     # - name: initialize the cluster
     #   become: yes
@@ -12,19 +13,19 @@
     - name: create .kube directory
       become: yes
       file:
-        path: $HOME/.kube
+        path: "{{ home }}/.kube"
         state: directory
 
     - name: copy admin.conf to user's kube config
       become: yes
       copy:
         src: /etc/kubernetes/admin.conf
-        dest: $HOME/.kube/config
+        dest: "{{ home }}/.kube/config"
         remote_src: yes
 
     - name: change owner for kube config
       file:
-        path: $HOME/.kube/config
+        path: "{{ home }}/.kube/config"
         owner: "{{ user }}"
         group: "{{ user }}"
 
