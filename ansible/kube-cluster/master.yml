@@ -16,6 +16,7 @@
         state: directory
 
     - name: copy admin.conf to user's kube config
+      become: yes
       copy:
         src: /etc/kubernetes/admin.conf
         dest: $HOME/.kube/config
