@@ -5,9 +5,9 @@
     user: ansible_user
     home: "/home/{{ user }}"
   tasks:
-    # - name: initialize the cluster
-    #   become: yes
-    #   shell: kubeadm init
+    - name: initialize the cluster
+      become: yes
+      shell: kubeadm init
 
     - name: create .kube directory
       become: yes
