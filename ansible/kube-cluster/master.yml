@@ -9,7 +9,6 @@
     #   become: yes
     #   shell: kubeadm init
 
-
     - name: create .kube directory
       become: yes
       file:

@@ -12,7 +12,6 @@
         debug:
           msg: "Join command is [{{ join_command_raw.stdout_lines[0] }}]"
 
-
 # - hosts: workers
 #   become: yes
 #   tasks:
