@@ -3,23 +3,21 @@
   tasks:
   - name: Install package needed for docker-ce
     yum:
-      name: '{{ item }}'
-      state: installed
-    with_items:
-      - "yum-utils"
-      - "device-mapper-persistent-data"
-      - "lvm2"
+      name:
+        - yum-utils
+        - device-mapper-persistent-data
+        - lvm2
+      state: present
 
   - name: Add Docker GPG key.
     rpm_key:
       key: https://download.docker.com/linux/centos/gpg
       state: present
 
-  - name: Add repository
-    yum_repository:
-      name: docker
-      description: Docker YUM repo
-      baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+  - name: Add Docker repo
+    get_url:
+      url: https://download.docker.com/linux/centos/docker-ce.repo
+      dest: /etc/yum.repos.d/docer-ce.repo
 
   - name: Install Docker
     yum:
@@ -27,7 +25,7 @@
         - docker-ce
         - docker-ce-cli
         - containerd.io
-      state: present
+      state: latest
 
   - name: start Docker
     service:
