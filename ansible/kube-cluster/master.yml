@@ -18,12 +18,17 @@
     #     state: directory
     #     mode: 0755
 
+    - name: create directory ~/.kube
+      file:
+        path=$HOME/.kube
+        state=directory
+
     - name: copy admin.conf to user's kube config
       copy:
         src: /etc/kubernetes/admin.conf
         dest: $HOME/.kube/config
         remote_src: yes
-        # owner: "{{ user }}"
+        owner: "{{ user }}"
 
     - name: install Pod network
       become: yes
