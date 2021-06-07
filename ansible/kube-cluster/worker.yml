@@ -17,7 +17,6 @@
   tasks:
     - name: join cluster
       shell: "{{hostvars[groups['master'][0]].join_command }} >> node_joined.txt"
-      # {{ hostvars[groups['appserver'][0]]['app_host'].stdout }}
       args:
         chdir: $HOME
         creates: node_joined.txt
