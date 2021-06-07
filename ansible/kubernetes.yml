@@ -41,6 +41,8 @@
       file:
         path: "{{ home_dir }}/.kube"
         state: directory
+        owner: "{{ user }}"
+        group: "{{ user }}"
 
     - name: Copy kubeconfig for user
       become: true
