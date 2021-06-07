@@ -21,7 +21,6 @@
         src: /etc/kubernetes/admin.conf
         dest: $HOME/.kube/config
         remote_src: yes
-        become: true
 
     - name: change owner for kube config
       file:
