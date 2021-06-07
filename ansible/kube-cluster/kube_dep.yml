@@ -1,60 +1,82 @@
-- hosts: master
+- hosts: all
   become: yes
   tasks:
-   - name: install Docker
-     yum:
-       name: docker
-       state: present
-       update_cache: true
+  - name: Install package needed for docker-ce
+    yum:
+      name: '{{ item }}'
+      state: installed
+    with_items:
+      - "yum-utils"
+      - "device-mapper-persistent-data"
+      - "lvm2"
 
-   - name: start Docker
-     service:
-       name: docker
-       state: started
+  - name: Add Docker GPG key.
+    rpm_key:
+      key: https://download.docker.com/linux/centos/gpg
+      state: present
 
-   - name: disable SELinux
-     command: setenforce 0
+  - name: Add repository
+    yum_repository:
+      name: docker
+      description: Docker YUM repo
+      baseurl: https://download.docker.com/linux/centos/docker-ce.repo
 
-   - name: disable SELinux on reboot
-     selinux:
-       state: disabled
+  - name: Install Docker
+    yum:
+      name:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+      state: present
 
-   - name: ensure net.bridge.bridge-nf-call-ip6tables is set to 1
-     sysctl:
+  - name: start Docker
+    service:
+      name: docker
+      state: started
+
+  - name: disable SELinux
+    command: setenforce 0
+
+  - name: disable SELinux on reboot
+    selinux:
+      state: disabled
+
+  - name: ensure net.bridge.bridge-nf-call-ip6tables is set to 1
+    sysctl:
       name: net.bridge.bridge-nf-call-ip6tables
       value: 1
       state: present
 
-   - name: ensure net.bridge.bridge-nf-call-iptables is set to 1
-     sysctl:
+  - name: ensure net.bridge.bridge-nf-call-iptables is set to 1
+    sysctl:
       name: net.bridge.bridge-nf-call-iptables
       value: 1
       state: present
 
-   - name: add Kubernetes' YUM repository
-     yum_repository:
+  - name: add Kubernetes' YUM repository
+    yum_repository:
       name: Kubernetes
       description: Kubernetes YUM repository
       baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
       gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
       gpgcheck: yes
 
-   - name: install kubelet
-     yum:
-        name: kubelet
-        state: present
-        update_cache: true
+  - name: install kubelet
+    yum:
+      name: kubelet
+      state: present
+      update_cache: true
 
-   - name: install kubeadm
-     yum:
-        name: kubeadm
-        state: present
+  - name: install kubeadm
+    yum:
+      name: kubeadm
+      state: present
 
-   - name: start kubelet
-     service:
-       name: kubelet
-       enabled: yes
-       state: started
+  - name: start kubelet
+    service:
+      name: kubelet
+      enabled: yes
+      state: started
 
 - hosts: master
   become: yes
