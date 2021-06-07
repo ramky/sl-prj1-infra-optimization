@@ -12,7 +12,7 @@
 
     - name: create .kube directory
       become: yes
-      become_user: centos
+      become_user: "{{ user }}"
       file:
         path: $HOME/.kube
         state: directory
@@ -21,7 +21,7 @@
     - name: copy admin.conf to user's kube config
       copy:
         src: /etc/kubernetes/admin.conf
-        dest: /home/centos/.kube/config
+        dest: $HOME/.kube/config
         remote_src: yes
         owner: "{{ user }}"
 
