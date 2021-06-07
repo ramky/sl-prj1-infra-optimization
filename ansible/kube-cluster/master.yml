@@ -4,9 +4,9 @@
   vars:
     user: ansible_user
   tasks:
-    - name: initialize the cluster
-      become: yes
-      shell: kubeadm init
+    # - name: initialize the cluster
+    #   become: yes
+    #   shell: kubeadm init
 
 
     - name: create .kube directory
@@ -22,6 +22,10 @@
         dest: $HOME/.kube/config
         remote_src: yes
         become: true
+
+    - name: change owner for kube config
+      file:
+        path: $HOME/.kube/config
         owner: "{{ user }}"
         group: "{{ user }}"
 
