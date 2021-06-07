@@ -1,2 +1,5 @@
 [master]
-ec2-3-89-162-168.compute-1.amazonaws.com
+ec2-3-91-201-160.compute-1.amazonaws.com
+
+[worker]
+ec2-3-82-60-188.compute-1.amazonaws.com
