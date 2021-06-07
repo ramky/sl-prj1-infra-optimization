@@ -40,3 +40,5 @@
       #     service:
       #       name: docker
       #       state: restarted
+
+      # TODO: chmod 666 /var/run/docker.sock
