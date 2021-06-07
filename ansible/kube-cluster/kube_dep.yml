@@ -25,6 +25,7 @@
         - docker-ce
         - docker-ce-cli
         - containerd.io
+      allowerasing: yes
       state: latest
 
   - name: start Docker
