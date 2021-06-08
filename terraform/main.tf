@@ -91,7 +91,7 @@ resource "aws_instance" "sl-prj1-k8s-master" {
   }
 }
 
-resource "aws_instance" "sl-prj1-k8s-worker2" {
+resource "aws_instance" "sl-prj1-k8s-worker1" {
   ami                    = var.instance_ami
   instance_type          = var.instance_type
   subnet_id              = aws_subnet.sl-prj1-subnet-public.id
