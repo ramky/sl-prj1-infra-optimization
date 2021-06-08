@@ -1,5 +1,5 @@
 ---
-- hosts: master
+- hosts: tag_Group_master
   become: yes
   vars:
     user: ansible_user

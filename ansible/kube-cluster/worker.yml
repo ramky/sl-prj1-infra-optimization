@@ -1,4 +1,4 @@
-- hosts: master
+- hosts: tag_Group_master
   become: yes
   gather_facts: false
   tasks:
@@ -12,7 +12,7 @@
         debug:
           msg: "Join command is [{{ join_command_raw.stdout_lines[0] }}]"
 
-- hosts: workers
+- hosts: tag_Group_worker
   become: yes
   tasks:
     - name: join cluster
