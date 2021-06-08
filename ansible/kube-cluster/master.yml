@@ -1,5 +1,8 @@
 ---
-- hosts: master
+plugin: aws_ec2
+include_filters:
+- tag:Group:
+  - 'master'
   become: yes
   vars:
     user: ansible_user
