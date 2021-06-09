@@ -1,6 +1,0 @@
-[master]
-ec2-3-85-169-114.compute-1.amazonaws.com
-
-[workers]
-ec2-34-224-79-109.compute-1.amazonaws.com
-ec2-3-94-145-119.compute-1.amazonaws.com
