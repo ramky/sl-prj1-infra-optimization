@@ -13,7 +13,7 @@ A simple todo list application built with MERN stack
 
 ### Running the app locally
 
-  In order to use the project locally, follow the below steps -
+In order to use the project locally, follow the below steps -
 
 - Get your connection string for MongoDB
 - Create a .env file in the root directory of project
@@ -32,9 +32,9 @@ A simple todo list application built with MERN stack
   ```
     cd ~/todos-list/backend
 
-    npm install .
+    yarn install .
 
-    npm run dev
+    yarn dev
   ```
 
 - Start the react front end
@@ -42,7 +42,7 @@ A simple todo list application built with MERN stack
   ```
     cd ~/todos-list/
 
-    npm install .
+    yarn install
 
-    npm run start
+    yarn start
   ```
