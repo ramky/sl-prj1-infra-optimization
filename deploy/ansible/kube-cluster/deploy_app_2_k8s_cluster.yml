@@ -1,0 +1,9 @@
+---
+- hosts: tag_Group_master
+  tasks:
+  - name: copy the k8s manifests to master node in ansible_user home
+    copy:
+      src: ../../k8s/
+      dest: /home/ansible_user/
+  - name: Create a Deployment from manifests on master node
+    command: kubectl apply -f /home/ansible_user/k8s/
