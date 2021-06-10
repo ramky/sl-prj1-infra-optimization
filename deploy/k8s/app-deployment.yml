@@ -15,7 +15,7 @@ spec:
       name: todo-app-pod
       labels:
         name: todo-app-pod
-        app: todo-app-app
+        app: todo-app
     spec:
       containers:
         - name: todo-app
