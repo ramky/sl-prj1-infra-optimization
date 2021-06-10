@@ -27,3 +27,4 @@ spec:
           #     value: example
           ports:
             - containerPort: 27017
+              hostPort: 27017
