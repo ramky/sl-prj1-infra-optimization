@@ -12,7 +12,7 @@ COPY package.json yarn.lock /app/
 RUN yarn install
 
 COPY . .
-# k8s will refer to mongo as db
-RUN sed -i'' -e 's/127.0.0.1/104.148.245.241/' .env
+# k8s manifest will refer to mongo-db as db
+RUN sed -i'' -e 's/127.0.0.1/db/' .env
 
 ENTRYPOINT /app/entrypoint.sh

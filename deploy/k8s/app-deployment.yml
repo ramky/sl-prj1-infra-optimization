@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app-deployment
+  labels:
+    app: todo-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: todo-app-pod
+      app: todo-app
+  template:
+    metadata:
+      name: todo-app-pod
+      labels:
+        name: todo-app-pod
+        app: todo-app-app
+    spec:
+      containers:
+        - name: todo-app
+          image: ramky/react_mongo_todo:latest
