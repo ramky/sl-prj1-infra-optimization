@@ -1,35 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongo-deployment
+  name: mongo
+  labels:
+    name: mongo
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: mongodb
+      app: mongo
+  replicas: 1
   template:
     metadata:
       labels:
-        app: mongodb
+        app: mongo
     spec:
       containers:
-      - name: mongodb
-        image: mongo:4.4.0-bionic
+      - name: mongo
+        image: mongo:4.2
+        args:
+          - --bind_ip
+          - 0.0.0.0
+        # resources:
+        #   requests:
+        #     cpu: 100m
+        #     memory: 100Mi
         ports:
-          - containerPort: 27017
-        envFrom:
-        - secretRef:
-            name: mongodb-secret
-        volumeMounts:
-        - name: mongodb-configuration-file
-          mountPath: /etc/mongod.conf
-          readOnly: true
-        - name: mongodb-persistent-storage
-          mountPath: /data/db
-      volumes:
-      - name: mongodb-persistent-storage
-        persistentVolumeClaim:
-          claimName: mongodb-pv-claim
-      - name: mongodb-configuration-file
-        configMap:
-          name: mongodb-config-file
+        - containerPort: 27017
