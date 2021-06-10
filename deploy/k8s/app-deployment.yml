@@ -19,4 +19,4 @@ spec:
     spec:
       containers:
         - name: todo-app
-          image: ramky/react_mongo_todo_app:latest
+          image: ramky/react_mongo_todo_app
