@@ -9,7 +9,6 @@ spec:
     matchLabels:
       app: todo-app
   type: Standalone
-  persistent: true
   template:
     metadata:
       labels:
