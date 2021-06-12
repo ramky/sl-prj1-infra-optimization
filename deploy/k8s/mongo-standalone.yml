@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        name: todo-app
+        app: todo-app
         role: mongo
         replicaset: MainRepSet
     spec:
