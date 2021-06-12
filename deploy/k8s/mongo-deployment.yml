@@ -8,7 +8,8 @@ spec:
   selector:
     matchLabels:
       app: todo-app
-  replicas: 1
+  type: Standalone
+  persistent: true
   template:
     metadata:
       labels:
@@ -21,7 +22,7 @@ spec:
           - --bind_ip
           - 0.0.0.0
           - "--port"
-          - "5000"
+          - "27017"
         ports:
-        - containerPort: 5000
+        - containerPort: 27017
       dnsPolicy: Default
