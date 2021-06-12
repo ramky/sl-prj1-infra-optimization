@@ -20,6 +20,8 @@ spec:
         args:
           - --bind_ip
           - 0.0.0.0
+          - "--port"
+          - "5000"
         ports:
-        - containerPort: 27017
+        - containerPort: 5000
       dnsPolicy: Default
